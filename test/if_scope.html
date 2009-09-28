@@ -1,0 +1,116 @@
+<html>
+<head></head>
+<body>
+<table>
+	<tr>
+		<th></th>
+		<th>n</th>
+		<th>total</th>
+		<th>avr</th>
+	</tr>
+	<tr>
+		<td><button id="case1">case1</button></td>
+		<td id="case1_n">0</td>
+		<td id="case1_t">0</td>
+		<td id="case1_a">0</td>
+	</tr>
+	<tr>
+		<td><button id="case2">case2</button></td>
+		<td id="case2_n">0</td>
+		<td id="case2_t">0</td>
+		<td id="case2_a">0</td>
+	</tr>
+	<tr>
+		<td><button id="case3">case3</button></td>
+		<td id="case3_n">0</td>
+		<td id="case3_t">0</td>
+		<td id="case3_a">0</td>
+	</tr>
+	<tr>
+		<td><button id="case4">case4</button></td>
+		<td id="case4_n">0</td>
+		<td id="case4_t">0</td>
+		<td id="case4_a">0</td>
+	</tr>
+	<tr>
+		<td><button id="case5">case5</button></td>
+		<td id="case5_n">0</td>
+		<td id="case5_t">0</td>
+		<td id="case5_a">0</td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript">
+var testCase = function(n, f){
+	return {
+		n    : n,
+		count: 0,
+		sum  : 0,
+		f    : f
+	};
+};
+
+var tests = {
+	case1: testCase(5000000, function(i){
+		var a, b, c = 1;
+		while(i--){
+			if(!b) b = 2;
+			a = b + c;
+			b = null;
+		}
+	}),
+
+	case2: testCase(5000000, function(i){
+		var a, b, c = 1;
+		while(i--){
+			a = (b || (b = 2)) + c;
+			b = null;
+		}
+	}),
+
+	case3: testCase(1000000, function(i){
+		var a, b, c = 1;
+		while(i--) (function(){
+			a = (b || (b = 2)) + c;
+			b = null;
+		})();
+	}),
+
+	case4: testCase(1000000, function(i){
+		while(i--) (function(){
+			var a, b, c = 1;
+			a = (b || (b = 2)) + c;
+			b = null;
+		})();
+	}),
+
+	case5: testCase(1000000, function(i){
+		while(i--) (function(){
+			var a, b, c = 1;
+			if(!b) b = 2
+			a = b + c;
+			b = null;
+		})();
+	})
+}
+
+var puts = function(id){
+	var test = tests[id];
+	return function(){
+		var s = new Date;
+		test.f(test.n);
+		var elps = new Date - s;
+		test.sum += elps;
+		test.count++;
+		document.getElementById(id + "_n").innerHTML = test.n;
+		document.getElementById(id + "_t").innerHTML = test.sum / test.count;
+		document.getElementById(id + "_a").innerHTML = test.sum / (test.count * test.n);
+	};
+};
+
+for(var x in tests){
+	document.getElementById(x).onclick = puts(x);
+//	document.getElementById(x).onclick();
+}
+</script>
+</html>
