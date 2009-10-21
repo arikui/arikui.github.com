@@ -1,0 +1,163 @@
+<html>
+<head></head>
+<body>
+<table>
+	<tr>
+		<th></th>
+		<th>n</th>
+		<th>total</th>
+		<th>avr</th>
+		<th>result</th>
+	</tr>
+	<tr>
+		<td><button id="case1">case1</button></td>
+		<td><input  id="case1_n" value="50000"/></td>
+		<td id="case1_t">0</td>
+		<td id="case1_a">0</td>
+		<td id="case1_r">0</td>
+	</tr>
+	<tr>
+		<td><button id="case2">case2</button></td>
+		<td><input  id="case2_n" value="50000"/></td>
+		<td id="case2_t">0</td>
+		<td id="case2_a">0</td>
+		<td id="case2_r">0</td>
+	</tr>
+	<tr>
+		<td><button id="case3">case3</button></td>
+		<td><input  id="case3_n" value="50000"/></td>
+		<td id="case3_t">0</td>
+		<td id="case3_a">0</td>
+		<td id="case3_r">0</td>
+	</tr>
+	<tr>
+		<td><button id="case4">case4</button></td>
+		<td><input  id="case4_n" value="50000"/></td>
+		<td id="case4_t">0</td>
+		<td id="case4_a">0</td>
+		<td id="case4_r">0</td>
+	</tr>
+	<tr>
+		<td><button id="case5">case5</button></td>
+		<td><input  id="case5_n" value="50000"/></td>
+		<td id="case5_t">0</td>
+		<td id="case5_a">0</td>
+		<td id="case5_r">0</td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript">
+var testCase = function(f){
+	return {
+		count: 0,
+		sum  : 0,
+		f    : f
+	};
+};
+
+var tests = {
+	case1: testCase(function(i){
+		var o = {
+			r: 1,
+			f: function(){
+				var self = this;
+				(function(n){
+					self.r += n;
+				})(2);
+			}
+		};
+
+		while(--i)
+			o.f();
+
+		return o.r;
+	}),
+
+	case2: testCase(function(i){
+		var o = {
+			r: 1,
+			f: function(){
+				(function(n){
+					this.r += n;
+				}).call(this, 2);
+			}
+		};
+
+		while(--i)
+			o.f();
+
+		return o.r;
+	}),
+
+	case3: testCase(function(i){
+		var o = {
+			r: 1,
+			f: function(){
+				(function(n){
+					this.r += n;
+				}).apply(this, [2]);
+			}
+		};
+
+		while(--i)
+			o.f();
+
+		return o.r;
+	}),
+
+	case4: testCase(function(i){
+		var o = {
+			r: 1,
+			f: function(){
+				(function(n){
+					this.r += n;
+				}).apply(this, arguments);
+			}
+		};
+
+		while(--i)
+			o.f(2);
+
+		return o.r;
+	}),
+
+	case5: testCase(function(i){
+		var o = {
+			r: 1,
+			a: [2],
+			f: function(){
+				(function(n){
+					this.r += n;
+				}).apply(this, this.a);
+			}
+		};
+
+		while(--i)
+			o.f();
+
+		return o.r;
+	})
+}
+
+var puts = function(id){
+	var test = tests[id];
+	return function(){
+		setTimeout(function(){
+			var n = parseInt(document.getElementById(id + "_n").value, 10);
+			var s = new Date;
+			var r = test.f(n);
+			var elps = new Date - s;
+			test.sum += elps;
+			test.count += n;
+			document.getElementById(id + "_t").innerHTML = elps;
+			document.getElementById(id + "_a").innerHTML = test.sum / test.count;
+			document.getElementById(id + "_r").innerHTML = r;
+		}, 100);
+	};
+};
+
+for(var x in tests){
+	document.getElementById(x).onclick = puts(x);
+}
+</script>
+</html>
