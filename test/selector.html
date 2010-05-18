@@ -1,0 +1,51 @@
+<html>
+<head><title>test</title>
+<script type="text/javascript">
+window.onload = function(){
+	var selectors = [
+		"#foo .bar",
+		".bar",
+		"#foo a",
+		"#foo *",
+		"span.bar",
+	];
+
+	var test = function(selector){
+		return function(){
+			var s = new Date;
+			for(var i = 0; i < 10000; i++)
+				document.body.querySelectorAll(selector);
+			console.log(selector + ": " + (new Date - s));
+		};
+	};
+
+	for(var i = -1, selector; selector = selectors[++i];)
+		setTimeout(test(selector), 1);
+};
+</script>
+</head>
+<body>
+<div id="foo">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+<a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar"></a><a class="bar">
+</div>
+</body>
+</html>
