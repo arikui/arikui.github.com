@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>test</title>
+<script type="text/javascript">
+function execute(){
+	window.open("caller.html");
+}
+
+function click1(){
+	execute();
+}
+
+function click2(){
+	setTimeout(function(){
+		execute();
+	}, 1);
+}
+
+function click3(){
+	var req = new XMLHttpRequest;
+
+	req.onreadystatechange = function(){
+		if(this.readyState == 4){
+			execute();
+		}
+	};
+
+	req.open("GET", "caller.html");
+	req.send();
+}
+</script>
+<body>
+<button onclick="click1();">click</button>
+<button onclick="click2();">setTimeout</button>
+<button onclick="click3();">XMLHttpRequest</button>
+<button onclick="document.getElementsByTagName('button')[0].click();">call first button's event</button>
+</body>
+</html>
